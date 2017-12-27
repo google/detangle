@@ -1,0 +1,42 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../detangle-event-card/detangle-event-card.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-event-list" name="detangle-event-list">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style>
+      paper-button#more {
+        background: white;
+        width: 100%;
+        margin: auto;
+      }
+
+      [hidden] {
+        display: none;
+      }
+    </style>
+    <template is="dom-repeat" items="{{lastEvents}}">
+      <div class="detangle-card">
+        <detangle-event-card event-data="{{item}}">
+      </div>
+    </template>
+    <div class="detangle-card" hidden$="[[!haveMore]]">
+      <paper-button id="more" raised on-tap="showMore">More events...</paper-button>
+    </div>
+  </template>
+  <script src="detangle-event-list-compiled.js"></script>
+</dom-module>

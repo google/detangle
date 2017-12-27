@@ -1,0 +1,24 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../detangle-launch-profile-button/detangle-launch-profile-button.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<dom-module id="detangle-launch-profile-card" name="detangle-launch-profile-card">
+  <template>
+
+    <template is="dom-if" if="{{hasChildProfiles}}" restamp>
+      <paper-card heading="Launch Browser" class="detangle-card">
+        <div class="card-content">
+          Launch a new window in another browser
+        </div>
+        <div class="card-actions">
+          <template is="dom-repeat" items="{{childProfiles}}">
+            <detangle-launch-profile-button profile="[[item]]"></detangle-launch-profile-button>
+          </template>
+        </div>
+      </paper-card>
+    </template>
+    <detangle-status this-profile="{{thisProfile}}"></detangle-status>
+
+  </template>
+  <script src="detangle-launch-profile-card-compiled.js"></script>
+</dom-module>

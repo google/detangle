@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Detangle: Welcome</title>
+    <link rel="import" href="polymer/polymer.html">
+    <link rel="import" href="paper-material/paper-material.html">
+    <link rel="import" href="detangle-status-card/detangle-status-card.html">
+    <link rel="import" href="detangle-theme-card/detangle-theme-card.html">
+    <style>
+      paper-material {
+        background: #f9f9f9;
+        margin: auto;
+        padding: 6px;
+        width: 428px;
+      }
+
+      div.card {
+        width: 420px;
+        min-height: 150px;
+        box-sizing: border-box;
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body unresolved>
+    <paper-material elevation="1">
+      <div class="container">
+        <div class="card">
+          <detangle-status-card></detangle-status-card>
+        </div>
+        <div class="card">
+          <detangle-theme-card></detangle-theme-card>
+        </div>
+      </div>
+    </paper-material>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-launch-profile-button" name="detangle-launch-profile-button">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style is="custom-style">
+      paper-button.CORPORATE {
+        background: var(--corporate-color);
+        color: white;
+      }
+
+      paper-button.REGULAR {
+        background: var(--regular-color);
+        color: white;
+      }
+
+      paper-button.ISOLATED {
+        background: var(--isolated-color);
+        color: white;
+      }
+    </style>
+    <paper-button class$="{{profile}}" raised>{{label}}</paper-button>
+  </template>
+  <script src="detangle-launch-profile-button-compiled.js"></script>
+</dom-module>

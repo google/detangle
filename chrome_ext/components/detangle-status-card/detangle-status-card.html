@@ -1,0 +1,78 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-status-card" name="detangle-status-card">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+
+    <style include="detangle-style"></style>
+    <style is="custom-style">
+      :host {
+        --paper-card-header-color: white;
+      }
+
+      paper-card {
+        background: #455a64;
+        color: white;
+      }
+
+      paper-card.CORPORATE {
+        background: var(--corporate-color);
+      }
+
+      paper-card.REGULAR {
+        background: var(--regular-color);
+      }
+
+      paper-card.ISOLATED {
+        background: var(--isolated-color);
+      }
+
+      .network-status {
+        margin-left: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-family: monospace;
+      }
+
+      .card-actions {
+        display: flex;
+      }
+    </style>
+
+    <paper-card heading="[[profileLabel]]" class$="[[thisProfile]] detangle-card">
+      <div class="card-content">
+        <div>[[profileInformation]]</div>
+      </div>
+      <div class="card-actions">
+        <paper-button on-tap="options"><iron-icon icon="settings"></iron-icon>Options</paper-button>
+        <template is="dom-if" if="[[networkClass]]">
+          <span class="network-status">
+            <iron-icon icon="settings-ethernet"></iron-icon>
+            <span>[[networkClass]]</span>
+          </span>
+        </template>
+      </div>
+    </paper-card>
+    <detangle-status this-profile="{{thisProfile}}"
+                     network-class="{{networkClass}}"></detangle-status>
+
+  </template>
+  <script src="detangle-status-card-compiled.js"></script>
+</dom-module>

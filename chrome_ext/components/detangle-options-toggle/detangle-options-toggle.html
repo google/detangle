@@ -1,0 +1,10 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<dom-module id="detangle-options-toggle" name="detangle-options-toggle">
+  <template>
+    <detangle-status this-profile="{{thisProfile}}"></detangle-status>
+    <paper-checkbox id="checkbox" disabled="[[disabled]]" checked="[[checked]]" noink>[[label]]</paper-checkbox>
+  </template>
+  <script src="detangle-options-toggle-compiled.js"></script>
+</dom-module>

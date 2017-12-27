@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Detangle</title>
+    <link rel="import" href="polymer/polymer.html">
+    <link rel="import" href="detangle-event-list/detangle-event-list.html">
+    <link rel="import" href="detangle-launch-profile-card/detangle-launch-profile-card.html">
+    <link rel="import" href="detangle-status/detangle-status.html">
+    <link rel="import" href="detangle-status-card/detangle-status-card.html">
+    <link rel="import" href="iron-icon/iron-icon.html">
+    <link rel="import" href="iron-icons/iron-icons.html">
+    <link rel="import" href="paper-button/paper-button.html">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+      body {
+        background-color: #f9f9f9;
+        padding: 0;
+        margin: 0;
+      }
+
+      div#browseraction {
+        box-sizing: border-box;
+        width: 360px;
+        max-height: 600px;
+        padding: 4px;
+        padding-right: 12px;
+        margin: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .detangle-card {
+        width: 100%;
+        margin: 4px;
+        box-sizing: border-box;
+      }
+
+      paper-button#reportbug {
+        background: white;
+        width: 100%;
+        margin: 4px;
+        box-sizing: border-box;
+        white-space: nowrap;
+      }
+
+      iron-icon[icon="bug-report"] {
+        color: #8d6e63;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="browseraction">
+      <detangle-status-card></detangle-status-card>
+      <a href="https://goto.google.com/detangle-bug" target="_blank" rel="noopener" tabindex="-1">
+        <paper-button id="reportbug" raised><iron-icon icon="bug-report"></iron-icon>Report a bug</paper-button>
+      </a>
+      <detangle-launch-profile-card></detangle-launch-profile-card>
+      <detangle-event-list num-events="2"></detangle-event-list>
+    </div>
+  </body>
+</html>

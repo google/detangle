@@ -1,0 +1,150 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-styles/default-theme.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-add-acl-dialog" name="detangle-add-acl-dialog">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style>
+      :host {
+        @apply --paper-font-body1;
+      }
+
+      #urlbox {
+        font-family: monospace;
+        white-space: pre-wrap;
+        overflow: auto;
+      }
+
+      #urlbox.bad {
+        color: var(--error-color);
+      }
+
+      #pattern {
+        --paper-input-container-input: {
+          font-family: monospace;
+        };
+      }
+
+      label#urllabel {
+        -webkit-transform: translateY(-75%) scale(0.75);
+        transform: translateY(-75%) scale(0.75);
+        width: 133%;
+        color: #737373;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 24px;
+        font-family: 'Roboto', 'Noto', sans-serif;
+      }
+
+      #pattern-box {
+        display: inline-flex;
+      }
+
+      #pattern-box > paper-input {
+        margin-right: auto;
+      }
+
+      .content {
+        max-width: 680px;
+      }
+
+      paper-dropdown-menu div[secondary] {
+        white-space: normal;
+      }
+
+      iron-icon[icon="help"] {
+        color: var(--disabled-color);
+      }
+
+      .buttons {
+        position: relative;
+        padding: 8px 8px 8px 24px;
+        margin: 0;
+        color: var(--paper-dialog-button-color, var(--primary-color));
+        @apply --layout-horizontal;
+        @apply --layout-end-justified;
+      }
+
+      paper-button {
+        @apply --paper-font-button;
+      }
+    </style>
+
+    <div class="content">
+
+      <iron-collapse opened="[[cleanUrl]]">
+        <label id="urllabel" for="urlbox">URL to match against</label>
+        <div id="urlbox">[[cleanUrl]]</div>
+      </iron-collapse>
+
+      <div id="pattern-box">
+        <paper-input label="Pattern"
+                     invalid="[[!isValid]]"
+                     id="pattern"
+                     value="{{pattern}}"
+                     auto-focus
+                     always-float-label
+                     size="50"
+                     placeholder="*.example.com"
+                     autocomplete="off"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     spellcheck="false">
+        </paper-input>
+      </div>
+
+      <div id="target-box">
+        <paper-dropdown-menu label="Where should it open?">
+          <paper-listbox class="dropdown-content" selected="{{targetProfile}}" attr-for-selected="value" attr-for-item-title="label" slot="dropdown-content">
+            <template is="dom-repeat" items="{{availableProfiles}}">
+              <paper-item value="{{item}}" label="[[computeProfileLabel(item)]]">
+                <paper-item-body two-line>
+                  <div>[[computeProfileLabel(item)]]</div>
+                  <div secondary>[[computeHelpMessage(item)]]</div>
+                </paper-item-body>
+              </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </div>
+
+      <div id="create-bug-box" hidden$="[[!bugUrl]]">
+        <paper-checkbox checked="{{createBug}}">Suggest for Corporate Policy</paper-checkbox>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <paper-button dialog-dismiss on-tap="fireClosedEvent">Cancel</paper-button>
+      <paper-button id="add" disabled="[[!isValid]]" dialog-confirm on-tap="fireClosedEvent">Add</paper-button>
+    </div>
+
+  </template>
+  <script src="detangle-add-acl-dialog-compiled.js"></script>
+</dom-module>

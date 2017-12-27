@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../detangle-options-text-input/detangle-options-text-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<dom-module id="detangle-options-managed-policy-controls" name="detangle-options-managed-policy-controls">
+  <template>
+  <style id="linter-paper-button-style">
+    /**
+     * This style preserves the styling previous to
+     * https://github.com/PolymerElements/paper-button/pull/115
+     * This change can break the layout of paper-button content.
+     * Remove this style to apply the change, more details at b/70528356.
+     */
+    paper-button {
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
+
+  <style>
+    paper-spinner {
+      vertical-align: middle;
+    }
+
+    paper-button > iron-icon {
+      size: 16px;
+      margin-right: 8px;
+    }
+
+    paper-button {
+      margin: 4px;
+      width: 24em;
+      background: #eeeeee;
+    }
+
+  </style>
+
+    <detangle-options-text-input storage-key="managed_policy_url" label="Managed Policy URL" prefer-managed default-value=""></detangle-options-text-input>
+    <template is="dom-if" if="[[showControls]]">
+      <p>Managed policy was last updated at: <i>[[lastUpdatedDisplay]]</i>.</p>
+      <div fit layout vertical center-justified>
+        <paper-button raised on-tap="refresh" disabled="[[refreshDisabled]]"><iron-icon icon="refresh"></iron-icon>Refresh Policy from Server</paper-button>
+        <paper-spinner active="[[updateInProgress]]"></paper-spinner>
+      </div>
+    </template>
+  </template>
+  <script src="detangle-options-managed-policy-controls-compiled.js"></script>
+</dom-module>

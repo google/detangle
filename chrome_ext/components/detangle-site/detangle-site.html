@@ -1,0 +1,42 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-site" name="detangle-site">
+  <template>
+    <style include="detangle-style"></style>
+    <style>
+      paper-icon-button {
+        margin-right: 2px;
+        margin-left: auto;
+      }
+
+      div {
+        background: white;
+        height: 48px;
+        display: flex;
+      }
+
+      .hover {
+        background: #fafafa;
+      }
+
+      div * {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      span.url {
+        font-family: monospace;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: auto;
+      }
+    </style>
+    <div id="row">
+      <span class="url">{{pattern}}</span>
+      <paper-icon-button icon="delete" id="delete" hidden="[[hideDelete]]"></paper-icon-button>
+    </div>
+  </template>
+  <script src="detangle-site-compiled.js"></script>
+</dom-module>

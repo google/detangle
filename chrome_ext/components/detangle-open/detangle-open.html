@@ -1,0 +1,13 @@
+<link rel="import" href="../polymer/polymer.html">
+<dom-module id="detangle-open" name="detangle-open">
+  <template>
+    <template is="dom-if" if="[[!errorMessage]]">
+      <h2>Redirecting to [[targetUrl]]...</h2>
+    </template>
+    <template is="dom-if" if="[[errorMessage]]">
+      <!-- TODO(michaelsamuel): Make this an error callout -->
+      <h2>[[errorMessage]]</h2>
+    </template>
+  </template>
+  <script src="detangle-open-compiled.js"></script>
+</dom-module>

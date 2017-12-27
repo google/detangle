@@ -1,0 +1,12 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<link rel="import" href="../detangle-site/detangle-site.html">
+<dom-module id="detangle-sitelist" name="detangle-sitelist">
+  <template>
+    <style include="detangle-style"></style>
+    <template is="dom-repeat" items="[[patterns]]" sort="compareAclEntries">
+      <detangle-site match-type="[[item.type]]" pattern="[[item.value]]" read-only="[[calcReadOnly]]"></detangle-site>
+    </template>
+  </template>
+  <script src="detangle-sitelist-compiled.js"></script>
+</dom-module>

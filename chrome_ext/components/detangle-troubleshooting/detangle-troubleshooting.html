@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/notification-icons.html">
+<dom-module id="detangle-troubleshooting" name="detangle-troubleshooting">
+  <template>
+
+    <style include="detangle-style"></style>
+    <style>
+      div.troubleshooting-body {
+        margin-bottom: 7px;
+      }
+
+      div.troubleshooting-checklist {
+        margin: 6px 0px;
+      }
+
+      div.troubleshooting-recommendation {
+        margin-top: 18px;
+      }
+    </style>
+
+    <template is="dom-if" if="{{showSummary}}">
+      <div class="troubleshooting-checklist">
+        <div>
+          <iron-icon icon="{{supportedOSStatusIcon_}}"></iron-icon>
+          <span>
+              Platform supported.
+          </span>
+        </div>
+        <template is="dom-if" if="{{platformSupported}}">
+            <div>
+              <iron-icon icon="{{osPackageStatusIcon_}}"></iron-icon>
+              <span>
+                  OS package present.
+              </span>
+            </div>
+          </div>
+        </template>
+        <template is="dom-if" if="{{haveManagedPolicy}}">
+          <div>
+            <iron-icon icon="{{updatedFromWebserviceStatusIcon_}}"></iron-icon>
+            <span>
+                Managed sitelist downloaded.
+            </span>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <div class="troubleshooting-recommendation">
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'install-linux') ]]">
+          <b>Recommendation:</b>
+          <p>
+            Detangle consists of a Chrome extension and a native package installed onto your machine. Please install detangle by running:
+            <pre>sudo apt-get install detangle</pre>
+            <br>
+            Once the package is installed, restart chrome with <i>chrome://restart</i>.
+          </p>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'install-mac') ]]">
+          <b>Recommendation:</b>
+          <p>
+            Detangle consists of a Chrome extension and a native package installed onto your machine. It appears the native package is missing. Try:
+            <ol>
+              <li>Open the <i>Managed Software Center</i> application.</li>
+              <li>Search for and install <i>Detangle</i>.</li>
+              <li>Once Detangle is installed, run <i>chrome://restart</i> in this browser.</li>
+            </ol>
+          </p>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'install-win') ]]">
+          <b>Recommendation:</b>
+          <p>
+            Detangle consists of a Chrome extension and a native package installed onto your machine. It appears the native package is missing. Try:
+            <ol>
+              <li>Open the <i>Software Center</i>.</li>
+              <li>Search for and install <i>Detangle</i>.</li>
+              <li>Once Detangle is installed, run <i>chrome://restart</i> in this browser.</li>
+            </ol>
+          </p>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'force-webservice') ]]">
+          <b>Recommendation:</b>
+          <p>
+            Detangle works by downloading a sitelist, which is used to decide if the URL can be opened in the corporate browser.
+            Detangle has not yet downloaded this sitelist, so no site will be allowed to open in Corporate. To fix this, try:
+            <ul>
+              <li>Go to the <i>Global Settings</i> tab, and press <i>Refresh Policy from Server</i>.</li>
+              <li>Restarting chrome with <i>chrome://restart</i>.</li>
+            </ul>
+          </p>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'platform-unsupported') ]]">
+          <b>Your platform is not supported :(</b>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'platform-partially-supported') ]]">
+          <b>Detangle will partially function on your machine after manual configuration.</b>
+          <p>
+            Unfortunately, Detangle is only partically supported on your platform. Automatically opening non-corporate sites in regular/risky
+            browsers will not occur, instead the request will be stopped. After an intercept, you can either open the site in incognito
+            or manually copy the URL into another browser.
+          </p>
+      </template>
+      <template is="dom-if" if="[[ shouldShowRecommendation(recommendationKind, 'ok') ]]">
+          <p>
+            Everything looks good from here! :) If you are having issues with Detangle, feel free to open a bug.
+          </p>
+      </template>
+    </div>
+
+  </template>
+  <script src="detangle-troubleshooting-compiled.js"></script>
+</dom-module>

@@ -1,0 +1,229 @@
+{
+  "type": "object",
+
+  "properties": {
+    "default_sandbox": {
+      "title": "Send to Isolated browser by default",
+      "description": "Whether to send sites that don't match any ACL to Isolated, rather than Regular",
+      "type": "boolean"
+    },
+
+    "incognito_sandbox": {
+      "title": "Open Isolated URLs in incognito mode",
+      "description": "When opening a URL in the Isolated browser, should we open in incognito?",
+      "type": "boolean"
+    },
+
+    "priv_short_names": {
+      "title": "[Deprecated] Open shortname urls in the corporate browser",
+      "description": "Whether to open shortnamed URLs in the corporate browser, rather than requring that each shortname be explicitly whitelisted",
+      "type": "boolean"
+    },
+
+    "managed_policy_url": {
+      "title": "Managed policy update URL",
+      "description": "When specified, detangle will periodically fetch and update its local copy of managed policy ACLs.",
+      "type": "string"
+    },
+
+    "managed_policy_base_update_period": {
+      "title": "Minimum number of minutes between updating ACLs using the webservice",
+      "description": "Sets the minimum number of minutes between ACL updates from the webservice.",
+      "type": "number"
+    },
+
+    "managed_policy_update_variation": {
+      "title": "Maximum positive deviation in minutes from base_update_period",
+      "description": "Sets the maximum positive deviation in the update period when fetching managed policy from the webservice.",
+      "type": "number"
+    },
+
+    "network_class": {
+      "title": "Network Class",
+      "description": "The class of network the machine is currently connected to.  ACLs tagged with the same string will be active, ACLs tagged with another string won't be.",
+      "type": "string"
+    },
+
+    "notify_on_handoff": {
+      "title": "Display a notification when URLs are automatically handed off",
+      "description": "Override the default option for whether notifications are displayed when URLs are automatically handed off (user preference takes precedence, default: true)",
+      "type": "boolean"
+    },
+
+    "priv_whitelist": {
+      "title": "Corporate ACL",
+      "description": "An array of ACL entries describing URLs to open in the corporate",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "regular_whitelist": {
+      "title": "Regular ACL",
+      "description": "An array of ACL entries describing URLs to open in the regular browser",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "risky_whitelist": {
+      "title": "Isolated ACL",
+      "description": "An array of ACL entries describing URLs to open in the isolated browser",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "priv_blacklist": {
+      "title": "Corporate Blacklist",
+      "description": "An array of ACL entries describing URLs that the Corporate browser will refuse to load",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "regular_blacklist": {
+      "title": "Regular Blacklist",
+      "description": "An array of ACL entries describing URLs that the Regular browser will refuse to load",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "risky_blacklist": {
+      "title": "Isolated Blacklist",
+      "description": "An array of ACL entries describing URLs that the Isolated browser will refuse to load",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "global_blacklist": {
+      "title": "Global Blacklist",
+      "description": "An array of ACL entries describing URLs that the all browsers will refuse to load",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "network_class": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "priv_net_blocks": {
+      "title": "[Deprectated] Privileged netblocks",
+      "description": "An array of ipv4/ipv6 netblocks that will be opened in the corporate browser",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "priv": {
+      "title": "Corporate ACL",
+      "description": "An array of match patterns describing URLs to open in the corporate browser",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "nonpriv": {
+      "title": "[Deprecated] Regular ACL",
+      "description": "An array of match patterns describing URLs to open in the regular browser",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "sandbox": {
+      "title": "[Deprecated] Isolated ACL",
+      "description": "An array of match patterns describing URLs to open in the isolated browser",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<dom-module id="detangle-theme-card" name="detangle-theme-card">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style is="custom-style">
+      iron-icon {
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+      }
+
+      iron-icon.launch {
+        --iron-icon-stroke-color: deepskyblue;
+      }
+
+      iron-icon.done {
+        --iron-icon-stroke-color: lawngreen;
+      }
+
+      paper-button.CORPORATE {
+        background: var(--corporate-color);
+        color: white;
+      }
+
+      paper-button.REGULAR {
+        background: var(--regular-color);
+        color: white;
+      }
+
+      paper-button.ISOLATED {
+        background: var(--isolated-color);
+        color: white;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+    </style>
+
+    <paper-card heading="Choose your theme" class="detangle-card">
+      <div class="card-content">
+        <p>
+        Detangle is easier to use when each browser looks different.
+        </p>
+        <p>
+        Click one of the buttons below to install our Detangle
+        [[profileLabel]] theme or a theme from the Chrome Web Store Gallery.
+        </p>
+      </div>
+      <div class="card-actions">
+        <a target="_blank"
+           rel="noopener"
+           tabindex="-1"
+           href="[[computeRecommendedThemeUrl(themeId)]]"
+           ><paper-button class$="{{thisProfile}}" raised>
+            <iron-icon icon="launch"></iron-icon>
+            Use default
+          </paper-button></a>
+
+        <a target="_blank"
+           rel="noopener"
+           tabindex="-1"
+           href="https://chrome.google.com/webstore/category/themes"
+           ><paper-button raised>
+            <iron-icon icon="launch"></iron-icon>
+            Select from Gallery
+          </paper-button></a>
+      </div>
+    </paper-card>
+    <detangle-status this-profile="{{thisProfile}}"></detangle-status>
+
+  </template>
+  <script src="detangle-theme-card-compiled.js"></script>
+</dom-module>

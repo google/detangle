@@ -1,0 +1,183 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/device-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../detangle-add-acl-dialog/detangle-add-acl-dialog.html">
+<link rel="import" href="../detangle-options-toggle/detangle-options-toggle.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<dom-module id="detangle-event-card" name="detangle-event-card">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style is="custom-style">
+      .medium {
+        --iron-icon-height: 20px;
+        --iron-icon-width: 20px;
+      }
+
+      paper-card {
+        width: 100%;
+        margin: auto;
+        --paper-card-header-text: {
+          padding-top: 8px;
+          padding-bottom: 0;
+          padding-left: 16px;
+          padding-right: 16px;
+          @apply --paper-font-title;
+        };
+
+        --paper-card-content: {
+          padding: 8px;
+        }
+      }
+
+      .handoff {
+        --paper-card-header-color: cornflowerblue;
+      }
+
+      .submission_blocked {
+        --paper-card-header-color: crimson;
+      }
+
+      .oauth_blocked {
+        --paper-card-header-color: crimson;
+      }
+
+      .REGULAR {
+        color: var(--regular-color);
+      }
+
+      .ISOLATED {
+        color: var(--isolated-color);
+      }
+
+      .card-content paper-item,paper-icon-item {
+        @apply --paper-font-body1;
+
+        --paper-item-min-height: 28px;
+        --paper-item-icon-width: 28px;
+        --paper-icon-item: {
+          padding-left: 0;
+          padding-right: 0;
+        };
+
+        --paper-item: {
+          padding-left: 0;
+          padding-right: 0;
+        };
+      }
+
+      div.card-actions {
+        display: flex;
+      }
+
+      .url {
+        @apply --paper-font-code1;
+        overflow-wrap: break-word;
+        overflow: hidden;
+      }
+
+      .align-right {
+        margin-left: auto;
+        margin-right: 0;
+      }
+
+      div.extra-details {
+        font-family: monospace;
+        font-size: 14px;
+        white-space: pre;
+      }
+
+      paper-material {
+        margin: 8px;
+      }
+
+      .add-dialog-sheet {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    </style>
+
+    <paper-card heading="{{makeHeading(eventType,targetProfileLabel)}}" class$="[[eventType]]">
+      <div class="card-content">
+        <paper-icon-item tabindex="-1">
+          <iron-icon class="medium" icon="link" item-icon slot="item-icon"></iron-icon>
+          <span class="url">
+            <template is="dom-if" if="[[showClipboard]]"><a href="[[url]]" id="urllink" on-tap="urlClicked">[[url]]</a></template>
+            <template is="dom-if" if="[[!showClipboard]]">[[url]]</template>
+          </span>
+        </paper-icon-item>
+        <paper-icon-item class$="[[targetProfile]]" tabindex="-1">
+          <iron-icon class="medium" icon="open-in-browser" item-icon slot="item-icon"></iron-icon>
+          <span>[[targetProfileLabel]]</span>
+        </paper-icon-item>
+        <paper-icon-item tabindex="-1">
+          <iron-icon class="medium" icon="device:access-time" item-icon slot="item-icon"></iron-icon>
+          <span>[[timeString]]</span>
+        </paper-icon-item>
+        <template is="dom-if" if="[[showDisplayHandoffPageToggle]]">
+          <paper-item class="options_toggles" tabindex="-1">
+            <detangle-options-toggle storage-key="display_handoff_page"
+                                     override-label="Always show this page"></detangle-options-toggle>
+          </paper-item>
+        </template>
+      </div>
+      <div class="card-actions">
+        <template is="dom-if" if="[[isInterceptedPage]]">
+          <paper-button on-tap="close" raised><iron-icon icon="done" style="color: green;"></iron-icon>Close</paper-button>
+        </template>
+        <template is="dom-if" if="[[shouldShowAdd(thisProfile, eventType)]]">
+          <paper-button on-tap="add" raised><iron-icon icon="add"></iron-icon>Add to sites...</paper-button>
+        </template>
+        <template is="dom-if" if="[[showClipboard]]">
+          <paper-button on-tap="copyToClipboard" raised><iron-icon icon="content-copy"></iron-icon>Copy URL</paper-button>
+          <paper-button on-tap="launchIncognito" raised><iron-icon icon="open-in-browser"></iron-icon>Open in Incognito Window</paper-button>
+        </template>
+        <template is="dom-if" if="[[extraDetails]]">
+          <paper-button class="align-right" toggles active="{{showExtraDetails}}" raised>
+            <template is="dom-if" if="[[showExtraDetails]]">
+              <iron-icon icon="expand-less"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[!showExtraDetails]]">
+              <iron-icon icon="expand-more"></iron-icon>
+            </template>
+            Details
+          </paper-button>
+        </template>
+      </div>
+      <template is="dom-if" if="[[extraDetails]]">
+        <iron-collapse opened="[[showExtraDetails]]">
+          <div class="extra-details">{{extraDetails}}</div>
+        </iron-collapse>
+      </template>
+      <iron-collapse opened="[[showAddDialog]]">
+        <paper-material elevation="4" class="add-dialog-sheet">
+          <detangle-add-acl-dialog id="addDialog" url="[[url]]"></detangle-add-acl-dialog>
+        </paper-material>
+      </iron-collapse>
+    </paper-card>
+
+    <paper-toast id="clipboardToast" text="URL copied to clipboard"></paper-toast>
+    <detangle-status this-profile="{{thisProfile}}"></detangle-status>
+  </template>
+  <script src="detangle-event-card-compiled.js"></script>
+</dom-module>

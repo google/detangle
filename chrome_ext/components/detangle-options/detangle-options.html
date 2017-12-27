@@ -1,0 +1,376 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/notification-icons.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../detangle-add-acl-dialog/detangle-add-acl-dialog.html">
+<link rel="import" href="../detangle-options-toggle/detangle-options-toggle.html">
+<link rel="import" href="../detangle-options-managed-policy-controls/detangle-options-managed-policy-controls.html">
+<link rel="import" href="../detangle-sitelist/detangle-sitelist.html">
+<link rel="import" href="../detangle-status/detangle-status.html">
+<link rel="import" href="../detangle-style/detangle-style.html">
+<link rel="import" href="../detangle-troubleshooting/detangle-troubleshooting.html">
+<dom-module id="detangle-options" name="detangle-options">
+  <template>
+    <style id="linter-paper-button-style">
+      /**
+       * This style preserves the styling previous to
+       * https://github.com/PolymerElements/paper-button/pull/115
+       * This change can break the layout of paper-button content.
+       * Remove this style to apply the change, more details at b/70528356.
+       */
+      paper-button {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+    <style include="detangle-style"></style>
+    <style>
+      div.options-toggle {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      iron-icon.warning {
+        --iron-icon-fill-color: gold;
+        margin-right: 4px;
+      }
+
+      iron-icon.error {
+        --iron-icon-fill-color: #a94442;
+        margin-right: 4px;
+      }
+
+      div.readonly-warning {
+        display: flex;
+      }
+
+      .readonly-warning * {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: 16px;
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #82b1ff;
+      }
+
+      div.global-settings {
+        padding: 16px;
+      }
+
+      div.global-settings > paper-material {
+        padding: 8px;
+        margin-bottom: 16px;
+      }
+
+      div.sites {
+        display: flex;
+      }
+
+      div.site-options {
+        margin-right: 8px;
+        padding-right: 8px;
+      }
+
+      div.site-options > paper-material {
+        margin-bottom: 12px;
+        padding-right: 8px;
+        width: 100%;
+      }
+
+      div.site-options paper-radio-button {
+        display: block;
+      }
+
+      paper-fab {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      paper-material.site-list {
+        width: 100%;
+        padding: 16px;
+      }
+
+      div.about {
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 16px;
+      }
+
+      div.about > * {
+        width: 100%;
+        margin-top: 16px;
+      }
+
+      paper-button > iron-icon {
+        size: 16px;
+        margin-right: 8px;
+      }
+
+      .global-settings paper-button {
+        margin: 4px;
+        width: 24em;
+        background: #eeeeee;
+      }
+
+      paper-dialog > paper-dialog-scrollable {
+        margin: 6px;
+        max-width: 900px;
+      }
+
+      paper-item.callout {
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin-bottom: 2px;
+      }
+
+      paper-item.warning {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+      }
+
+      paper-item.error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebcccc;
+      }
+
+      paper-item.callout-warning > paper-item-body {
+        margin-left: 6px;
+      }
+
+      paper-item-body > div.callout-title {
+        font-weight: bold;
+      }
+
+      paper-item-body > div.callout-text {
+        white-space: normal;
+      }
+
+      div > .section-title {
+        padding-top: 16px;
+        padding-bottom: 4px;
+        font-size: 24px;
+        font-weight: 400;
+        color: #000;
+      }
+
+      div.section {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        border-top: 1px solid #e8e8e8;
+      }
+
+      div.section:first-child {
+        border-top: none;
+      }
+
+      paper-button.CORPORATE {
+        background: var(--corporate-color);
+        color: white;
+      }
+
+      paper-button.REGULAR {
+        background: var(--regular-color);
+        color: white;
+      }
+
+      paper-button.ISOLATED {
+        background: var(--isolated-color);
+        color: white;
+      }
+
+      a.style-scope.detangle-options {
+        text-decoration: none;
+      }
+    </style>
+
+    <paper-dialog modal opened="[[!configured]]">
+      <h2>Set up Detangle</h2>
+      <paper-dialog-scrollable>
+        <paper-item class="callout error" hidden="{{!hasInstallProblems}}">
+          <iron-icon icon="warning" class="error"></iron-icon>
+          <paper-item-body two-line>
+            <div class="callout-title">Fix issues with your installation</div>
+            <div secondary class="callout-text">
+              <i>There appears to be issues with your installation</i>.
+              <ul>
+                <li hidden="{{platformSupported}}">This platform is not supported.</li>
+                <li hidden="{{haveManagedPolicy}}">Could not read configuration from Chrome managed storage.</li>
+              </ul>
+            </div>
+          </paper-item-body>
+        </paper-item>
+
+        <paper-item class="callout warning">
+          <iron-icon icon="warning" class="warning"></iron-icon>
+          <paper-item-body two-line>
+            <div class="callout-title">Check you are using your Corporate browser.</div>
+            <div secondary class="callout-text">
+              Pressing <strong>Set up</strong> will configure this window as your Corporate browser.
+              <p>The Corporate browser will be used for accessing Corporate data only.  When you access
+              external websites (for personal or work purposes), they will open in another browser.</p>
+            </div>
+          </paper-item-body>
+        </paper-item>
+
+        <p>Detangle separates your browsing across three different browser windows.</p>
+        <p>When you click the <strong>Set up</strong> button, two new browser windows
+        will pop up. Please follow the instructions in those windows then
+        return to this one when finished.</p>
+
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button id="setup" autofocus>Set up</paper-button>
+      </div>
+    </paper-dialog>
+
+    <template is="dom-if" if="[[readOnly]]">
+      <div class="readonly-warning"><iron-icon icon="warning"></iron-icon><span>Settings must be changed via the Corporate browser</span></div>
+    </template>
+
+    <paper-tabs selected="{{selectedPage}}">
+      <paper-tab>About</paper-tab>
+      <paper-tab>Manage Sites</paper-tab>
+      <paper-tab>Global Settings</paper-tab>
+    </paper-tabs>
+
+    <iron-pages selected="[[selectedPage]]">
+      <!-- About -->
+      <div class="about">
+        <div class="section">
+          <div class="section-title">
+            What is Detangle?
+          </div>
+
+          <div class="section-content">
+            <p>
+              This extension helps you automate the process of running multiple
+              isolated instances of Chrome.
+            </p>
+            <p>
+              It gives you separate browsers for:
+            </p>
+
+            <ul>
+              <li><em>Corporate activity:</em> Stuff which uses your
+                <code>@google.com</code> account or identity as a Googler.</li>
+              <li><em>Regular activities:</em> External activity including
+                general research, web browsing or social stuff. This might be work or
+                personal. It's a general web browser.</li>
+              <li><em>Isolated activities:</em> For when you need to spend time in the
+                less civilized parts of the internet.  Please be careful!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            Choose your theme
+          </div>
+          <div class="section-content">
+            <p>
+              Detangle is easier to use when each browser looks different.
+            </p>
+
+            <p>
+              Click one of the buttons below to install our Detangle theme or a theme from the Chrome Web Store Gallery.
+            </p>
+          </div>
+
+          <div class="section-actions">
+            <a target="_blank" rel="noopener" tabindex="-1"
+               href="[[getRecommendedThemeUrl(thisProfile)]]"
+             ><paper-button class$="{{thisProfile}}" raised>
+                <iron-icon icon="launch"></iron-icon>
+                Use default
+              </paper-button></a>
+
+            <a target="_blank" rel="noopener" tabindex="-1"
+               href="https://chrome.google.com/webstore/category/themes"
+               ><paper-button raised>
+                <iron-icon icon="launch"></iron-icon>
+                Select from Gallery
+              </paper-button></a>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            Troubleshooting Detangle
+          </div>
+          <div class="section-content">
+            <detangle-troubleshooting have-managed-policy="{{haveManagedPolicy}}" platform-supported="{{platformSupported}}"></detangle-troubleshooting>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Sites -->
+      <div class="sites">
+        <div class="site-options">
+          <paper-material>
+            <paper-radio-group selected="{{sitesProfile}}">
+              <template is="dom-repeat" items="[[profiles]]">
+                <paper-radio-button name="[[item]]" noink>[[computeProfileLabel(item)]]</paper-radio-button>
+              </template>
+            </paper-radio-group>
+          </paper-material>
+
+          <paper-material>
+            <paper-radio-group selected="{{sitesStorageArea}}">
+              <paper-radio-button name="[[prefsStorageArea(thisProfile)]]" noink>User-Defined</paper-radio-button>
+              <paper-radio-button name="managed" noink>Managed</paper-radio-button>
+            </paper-radio-group>
+          </paper-material>
+
+          <paper-fab icon="add" on-tap="addAcl" hidden="[[readOnly]]"></paper-fab>
+
+        </div>
+
+        <paper-material class="site-list">
+          <detangle-sitelist read-only="[[readOnly]]" storage-key="[[computeStorageKey(sitesProfile)]]" storage-area="[[sitesStorageArea]]"></detangle-sitelist>
+          <paper-dialog id="addDialog">
+            <h2>Add Pattern</h2>
+            <detangle-add-acl-dialog target-profile="{{sitesProfile}}"></detangle-add-acl-dialog>
+          </paper-dialog>
+        </paper-material>
+      </div>
+
+      <!-- Global Settings -->
+      <div class="global-settings">
+        <paper-material>
+          <template is="dom-repeat" items="[[optionsToggles]]">
+            <div class="options-toggle">
+              <detangle-options-toggle read-only="[[readOnly]]"
+                                       storage-key="[[item]]"></detangle-options-toggle>
+            </div>
+          </template>
+          <detangle-options-managed-policy-controls></detangle-options-managed-policy-controls>
+          <div>
+            <paper-button id="resync" raised hidden="[[readOnly]]"><iron-icon icon="notification:sync-problem"></iron-icon>Force Sync to Other Browsers</paper-button>
+          </div>
+        </paper-material>
+      </div>
+    </iron-pages>
+
+    <detangle-status this-profile="{{thisProfile}}"></detangle-status>
+  </template>
+  <script src="detangle-options-compiled.js"></script>
+</dom-module>

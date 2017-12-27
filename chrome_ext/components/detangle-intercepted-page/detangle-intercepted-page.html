@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../detangle-event-card/detangle-event-card.html">
+<dom-module id="detangle-intercepted-page" name="detangle-intercepted-page">
+  <template>
+    <style is="custom-style">
+      paper-card {
+        margin: auto;
+        width: 100%;
+      }
+
+      paper-material {
+        background: gainsboro;
+        margin: auto;
+        padding: 6px;
+        width: 60%;
+      }
+
+      paper-toolbar {
+        margin-bottom: 8px;
+      }
+
+      span.title {
+        padding-top: 1px;
+        padding-bottom: 1px;
+      }
+    </style>
+    <paper-material elevation="1">
+      <div class="container">
+        <paper-toolbar>
+          <span class="title" slot="top">Detangle: Navigation intercepted</span>
+        </paper-toolbar>
+        <template is="dom-if" if="{{eventId}}">
+          <detangle-event-card event-id="{{eventId}}" is-intercepted-page></detangle-event-card>
+        </template>
+        <template is="dom-if" if="{{!eventId}}">
+          <paper-card heading="Event history not found">
+            <div class="card-content">
+              We were unable to retrieve the history for this event.
+              This could be because:
+              <ul>
+                <li>Your browser restarted</li>
+                <li>The event history expired (we keep up to 25 events)</li>
+              </ul>
+            </div>
+          </paper-card>
+        </template>
+      </div>
+    </paper-material>
+  </template>
+  <script src="detangle-intercepted-page-compiled.js"></script>
+</dom-module>

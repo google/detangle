@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Detangle: Recent Events</title>
+    <link href="polymer/polymer.html" rel="import">
+    <link href="detangle-event-list/detangle-event-list.html" rel="import">
+    <link href="paper-toolbar/paper-toolbar.html" rel="import">
+    <style>
+      body {
+        background-color: #f9f9f9;
+      }
+
+      .centered {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      paper-toolbar {
+        margin: 4px;
+        width: 100%;
+      }
+
+      .detangle-card {
+        box-sizing: border-box;
+        margin: 4px;
+        width: 100%;
+      }
+
+      div.title {
+        padding: 1px;
+      }
+    </style>
+  </head>
+  <body unresolved>
+    <div class="centered">
+      <paper-toolbar>
+        <div class="title" slot="top">Detangle: Recent Events</div>
+      </paper-toolbar>
+      <detangle-event-list></detangle-event-list>
+    </div>
+  </body>
+</html>

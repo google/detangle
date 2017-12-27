@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "Detangle",
+  "description": "An extension to automate the isolation of corporate browsing from the rest of the web, using multiple Chrome browser instances.",
+  "version": "1.4.2",
+  "icons": {
+    "16":  "icon16.png",
+    "48":  "icon48.png",
+    "128": "icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgiPyDSzRjeqWKLJuxZWAHWX6GdgFg7VTgTUzOQ0tNPDvfqZ/T51y5un9AeSWNS2GwbuXn1D6qpk5RxR7OWz3pdyONwPwYqTYL7C+mb70xM7t/LAcdfIwHwEwkR6YGUeCZGH06Vu9k/sllSqFpMpf3uvtdAjLryJI+zob1M9WPKlxgs+IDYHoyA7jc4UAjKMKE7BhFhutcym1FoqIKl8da1b5LEuyegiYY5Z2zz4B6qx/LypMbrlrbSVfRtQ2E0sl3joIw5RstM7DBoH/Xe1NiDDGZ1JVg9TBSN6/Rm8CzR3KyNEKShKUpPbo8ar4NQCvmLEtiXLhxQF7CXz5kV+FPwIDAQAB",
+  "options_page": "options.html",
+  "incognito": "split",
+  "permissions": [
+    "alarms",
+    "clipboardWrite",
+    "contextMenus",
+    "nativeMessaging",
+    "notifications",
+    "privacy",
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*",
+    "ftp://*/*"
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": ["background.js"]
+  },
+  "storage": {
+    "managed_schema": "managed_storage_schema.json"
+  },
+  "browser_action": {
+    "default_title": "Detangle",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "commands": {
+    "launch_regular": {
+      "description": "Launch the Regular browser"
+    },
+    "launch_isolated": {
+      "description": "Launch the Isolated browser"
+    }
+  }
+}

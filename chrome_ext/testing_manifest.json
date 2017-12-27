@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "Detangle Testing",
+  "description": "An extension to automate Chrome profile separation (test version that will break all the time)",
+  "version": "1.4.2",
+  "icons": {
+    "16":  "icon16.png",
+    "48":  "icon48.png",
+    "128": "icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2cP1LlX9oVjmadaA7P4uGc/RIN2A9Z8fit7Jf84EDtk5z4jMc6Br6iGeTbayqA90NRe2D9duh3gVqnMn+iK5ZTksYRFdQaWVti3mzCb3tMbXYS7lxgoqCBX2yCnj1Fw8UJyts5liFqxSbNcR402HAmkZjnT6YKbEoeBsW6N8YTNvJwwP6GcQfDXWVObCEI6Yt6HKcxVadTjYeQ2AfyId1vQ9gAHknNy/z6yLr5U4/1BhKFJhjAIZd8lw69HPme+8HTUMuYLlupQHghqQHou038UnbDZuKK3OxQOEvtycY5KcmNrvv2g2871MpKWuuXs2rLsHUJ+MJE/IPCUtpYbjZwIDAQAB",
+  "options_page": "options.html",
+  "incognito": "split",
+  "permissions": [
+    "alarms",
+    "clipboardWrite",
+    "contextMenus",
+    "nativeMessaging",
+    "notifications",
+    "privacy",
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*",
+    "ftp://*/*"
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": ["js/background_compiled.js"]
+  },
+  "storage": {
+    "managed_schema": "managed_storage_schema.json"
+  },
+  "browser_action": {
+    "default_title": "Detangle",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "commands": {
+    "launch_regular": {
+      "description": "Launch the Regular browser"
+    },
+    "launch_isolated": {
+      "description": "Launch the Isolated browser"
+    }
+  }
+}

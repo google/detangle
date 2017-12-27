@@ -1,0 +1,9 @@
+{
+  "name": "com.google.corp.detangle",
+  "description": "Launch URLs in another browser profile",
+  "path": "/usr/lib/detangle/detanglenm",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://extension_id/",
+  ]
+}

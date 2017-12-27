@@ -1,0 +1,11 @@
+div#message_area.hidden {
+  display: none;
+}
+div#message_area.success {
+  display: block;
+  background-color: #A5D6A7;
+}
+div#message_area.fail {
+  display: block;
+  background-color: #EF9A9A;
+}
