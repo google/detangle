@@ -17,6 +17,12 @@ running:
 bazel build native_messaging:detanglenm
 ```
 
+Or build the package for Debian/Ubuntu by running:
+
+```
+bazel build native_messaging/deb:detanglenm_deb
+```
+
 The Chrome extension component can be built by running:
 
 ```

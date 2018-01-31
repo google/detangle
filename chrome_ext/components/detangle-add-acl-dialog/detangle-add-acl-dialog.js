@@ -142,9 +142,9 @@ Polymer({
      * @return {!Promise}
      */
     function appendEntry(value) {
-      const newValue = value instanceof Array ? value : [];
+      const /** !Array */ newValue = Array.isArray(value) ? value : [];
       newValue.push(newEntry);
-      return storageArea.set({[storageKey]: newEntry});
+      return storageArea.set({[storageKey]: newValue});
     }
 
     return storageArea.getValue(storageKey).then(appendEntry);
