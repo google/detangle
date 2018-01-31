@@ -4,6 +4,6 @@
   "path": "/usr/lib/detangle/detanglenm",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://extension_id/",
+    "chrome-extension://hcmeejlfgajdddobdodhlhcolankfpli/"
   ]
 }
