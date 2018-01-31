@@ -16,7 +16,7 @@ pkg_tar(
 
 pkg_tar(
     name = "detangle_crx_json",
-    srcs = ["rename_to_extensionid.json"],
+    srcs = ["hcmeejlfgajdddobdodhlhcolankfpli.json"],
     mode = "0644",
     package_dir = "/opt/google/chrome/extensions/",
 )
