@@ -10,6 +10,7 @@ closure_js_library(
 closure_js_library(
     name = "chrome_ext_externs",
     srcs = [
+      "contrib/externs/chrome.js",
       "contrib/externs/chrome_extensions.js",
     ],
 )

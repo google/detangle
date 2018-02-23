@@ -1,4 +1,18 @@
 http_archive(
+    name = "io_bazel_rules_closure",
+    sha256 = "6691c58a2cd30a86776dd9bb34898b041e37136f2dc7e24cadaeaf599c95c657",
+    strip_prefix = "rules_closure-08039ba8ca59f64248bb3b6ae016460fe9c9914f",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_closure/archive/08039ba8ca59f64248bb3b6ae016460fe9c9914f.tar.gz",
+        "https://github.com/bazelbuild/rules_closure/archive/08039ba8ca59f64248bb3b6ae016460fe9c9914f.tar.gz",  # 2018-01-16
+    ],
+)
+
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
+
+closure_repositories()
+
+http_archive(
     name = "io_bazel_rules_go",
     sha256 = "90bb270d0a92ed5c83558b2797346917c46547f6f7103e648941ecdb6b9d0e72",
     url = "https://github.com/bazelbuild/rules_go/releases/download/0.8.1/rules_go-0.8.1.tar.gz",
@@ -9,22 +23,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_too
 go_rules_dependencies()
 
 go_register_toolchains()
-
-http_archive(
-    name = "io_bazel_rules_closure",
-    sha256 = "25f5399f18d8bf9ce435f85c6bbf671ec4820bc4396b3022cc5dc4bc66303609",
-    strip_prefix = "rules_closure-0.4.2",
-    urls = [
-        "http://mirror.bazel.build/github.com/bazelbuild/rules_closure/archive/0.4.2.tar.gz",
-        "https://github.com/bazelbuild/rules_closure/archive/0.4.2.tar.gz",
-    ],
-)
-
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
-
-closure_repositories()
-
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
     name = "build_bazel_rules_nodejs",
@@ -69,10 +67,10 @@ npm_install(
 new_http_archive(
     name = "closure_compiler",
     build_file = "closure_compiler.BUILD",
-    sha256 = "d6278fc37f20bf5bd06efddf4f5aadf87e5f3d578293443bf0666ce19167e545",
-    strip_prefix = "closure-compiler-20170626",
+    sha256 = "e7d5f24a9ba38b84294c8acc866a9d4ba0da03f297655d588d33d982cb6133f8",
+    strip_prefix = "closure-compiler-20180101",
     urls = [
-        "https://github.com/google/closure-compiler/archive/v20170626.tar.gz",
+        "https://github.com/google/closure-compiler/archive/v20180101.tar.gz",
     ],
 )
 
