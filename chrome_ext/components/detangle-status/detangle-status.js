@@ -71,7 +71,7 @@ let StatusElement = Polymer({
       // pages like the popup or options page, which should only remain in this
       // state for a relatively short period.
       setTimeout(pollStatus, 500);
-      chrome.runtime.sendMessage({command: 'status'}, handleResponse);
+      chrome.runtime.sendMessage({'command': 'status'}, handleResponse);
     };
 
     if (!StatusElement.instance) {

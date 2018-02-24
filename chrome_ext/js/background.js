@@ -722,8 +722,8 @@ class Background {
     const refreshWebServiceAcl = () =>
         updateFromWebService(this.settings.managedPolicyUrl, null)
             .then(
-                () => ({success: true}),
-                (err) => ({success: false, error: err}));
+                () => ({'success': true}),
+                (err) => ({'success': false, 'error': err}));
 
     /**
      * Synchronizes config to subordinate profiles.
@@ -731,15 +731,15 @@ class Background {
      * @return {!Promise<{success: boolean, error}>}
      */
     const resync = () => this.syncConfigToSubordinates(this.settings)
-                             .then(() => ({success: true}))
-                             .catch(e => ({success: false, error: e.message}));
+                             .then(() => ({'success': true}))
+                             .catch(e => ({'success': false, 'error': e.message}));
 
     /**
      * Launches a URL in the specified profile.
      */
     const launch = () => {
-      const /** !Profiles */ targetProfile = validateProfile(message.profile);
-      this.handoff(targetProfile, message.url);
+      const /** !Profiles */ targetProfile = validateProfile(message['profile']);
+      this.handoff(targetProfile, message['url']);
     };
 
     /**
@@ -749,8 +749,8 @@ class Background {
      */
     const status = () => {
       return {
-        running_in: this.settings.thisProfile,
-        network_class: this.settings.networkClass || undefined,
+        'running_in': this.settings.thisProfile,
+        'network_class': this.settings.networkClass || undefined,
       };
     };
 
@@ -761,7 +761,7 @@ class Background {
      */
     const getEventDetails = () => {
       if (message.eventId) {
-        return getEvent(message.eventId);
+        return getEvent(message['eventId']);
       } else {
         console.warn('Received getevent command with no eventId:', message);
       }
@@ -779,27 +779,28 @@ class Background {
      * @const {!Object<string, function(): ?>}
      */
     const commands = {
-      launch: launch,
-      status: status,
-      getevent: getEventDetails,
-      refresh_webservice_acl: refreshWebServiceAcl,
-      listevents: listEvents,
-      resync: resync,
+      'launch': launch,
+      'status': status,
+      'getevent': getEventDetails,
+      'refresh_webservice_acl': refreshWebServiceAcl,
+      'listevents': listEvents,
+      'resync': resync,
     };
 
-    if (!message.command) {
-      console.warn('messageHandler: No command in message from', sender);
+    const /** string */ command = message['command'] || '';
+    if (!command) {
+      console.warn('messageHandler: No command in message from', sender, message);
       return;
     }
 
-    if (!commands.hasOwnProperty(message.command)) {
+    if (!commands.hasOwnProperty(command)) {
       console.warn(
-          'messageHandler: Invalid/unsupported command:', message.command,
+          'messageHandler: Invalid/unsupported command:', command,
           'in message from', sender);
       return;
     }
 
-    const response = commands[message.command]();
+    const response = commands[command]();
     if (response) {
       sendResponse(response);
     }

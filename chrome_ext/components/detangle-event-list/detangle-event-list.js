@@ -91,7 +91,7 @@ Polymer({
    */
   ready: function() {
     chrome.runtime.sendMessage(
-        {command: 'listevents'}, events => this.events = events);
+        {'command': 'listevents'}, events => this.events = events);
   },
 
 

@@ -41,8 +41,8 @@ Polymer({
    */
   launch: function() {
     chrome.runtime.sendMessage({
-      command: 'launch',
-      profile: this.profile,
+      'command': 'launch',
+      'profile': this.profile,
     });
   },
 

@@ -4,6 +4,7 @@ load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
 
 closure_js_binary(
     name = "background",
+    compilation_level = "SIMPLE",
     dependency_mode = "STRICT",
     entry_points = ["detangle.Background"],
     language = "ECMASCRIPT_2015",
@@ -14,6 +15,7 @@ closure_js_binary(
 
 closure_js_binary(
     name = "sync_options",
+    compilation_level = "SIMPLE",
     dependency_mode = "STRICT",
     entry_points = ["detangle.doSyncOptions"],
     language = "ECMASCRIPT_2015",
@@ -24,6 +26,7 @@ closure_js_binary(
 
 closure_js_binary(
     name = "open",
+    compilation_level = "SIMPLE",
     dependency_mode = "STRICT",
     entry_points = ["detangle.open"],
     language = "ECMASCRIPT_2015",

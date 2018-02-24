@@ -94,12 +94,11 @@ Polymer({
    * Asks the background page to refresh webservice ACLs.
    */
   refresh() {
-    var self = this;
-    self.updateInProgress = true;
+    this.updateInProgress = true;
     chrome.runtime.sendMessage(
-        {command: 'refresh_webservice_acl'}, function(response) {
-          self.updateInProgress = false;
-        });
+      {'command': 'refresh_webservice_acl'},
+      response => { this.updateInProgress = false; }
+    );
   },
 
   /**

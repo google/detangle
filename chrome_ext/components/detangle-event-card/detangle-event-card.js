@@ -128,14 +128,15 @@ Polymer({
       return;
     }
 
-    var message = {command: 'getevent', eventId: eventId};
-    chrome.runtime.sendMessage(message, ev => {
-      if (!ev) {
-        console.log('Unable to retrieve event', eventId);
-        return;
-      }
-      this.eventData = /** @type {!Object} */ (ev);
-    });
+
+    chrome.runtime.sendMessage(
+        {'command': 'getevent', 'eventId': eventId}, ev => {
+          if (!ev) {
+            console.log('Unable to retrieve event', eventId);
+            return;
+          }
+          this.eventData = /** @type {!Object} */ (ev);
+        });
   },
 
   /**
