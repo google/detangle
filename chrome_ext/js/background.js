@@ -467,18 +467,17 @@ class Background {
      */
     const accept = () => /** @type {!BlockingResponse} */ ({cancel: false});
 
+    // Guard: is the URL blocked?
+    if (isBlocked(settings, url)) {
+      return intercept(logEvent(
+          EventType.BLACKLISTED, url, details.tabId, settings.thisProfile));
+    }
 
     /** @type {!Profiles} */
     const targetProfile = getProfile(settings, url);
     if (targetProfile == settings.thisProfile) {
       // The URL would be handled by the current profile, just a couple of final
       // checks...
-
-      // Guard: is the URL blocked?
-      if (isBlocked(settings, url)) {
-        return intercept(logEvent(
-            EventType.BLACKLISTED, url, details.tabId, settings.thisProfile));
-      }
 
       // Guard: is the URL an OAuth endpoint?
       if (isOAuthEndpoint(settings, url)) {
