@@ -32,13 +32,17 @@ and rename `hcmeejlfgajdddobdodhlhcolankfpli.json` before building.
 
 ## The Detangle Chrome Extension
 
-We have posted a build of the extension on the [Chrome Web Store](https://chrome.google.com/webstore/detail/detangle/hcmeejlfgajdddobdodhlhcolankfpli) already, although if you wish to manage your own build, you may build it by running:
+For your convenience, we have posted a build of the extension on the
+[Chrome Web Store](https://chrome.google.com/webstore/detail/detangle/hcmeejlfgajdddobdodhlhcolankfpli).
+If you wish to manage your own build and release process, you may build the extension by running:
 
 ```shell
 bazel build //chrome_ext
 ```
 
-This will create a file called `extension.zip`, which may be uploaded through the [Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard).  Uploading the file will create a new extension ID, and references to the extension ID will need to be changed in both
+This will create a file called `extension.zip`, which may be uploaded through the
+[Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard).
+Uploading the file will create a new extension ID, and references to the extension ID will need to be changed in both
 the managed policy and the nativeMessaging package.
 
 ## Managed Policy
