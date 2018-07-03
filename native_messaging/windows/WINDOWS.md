@@ -14,7 +14,7 @@ To build the native messaging client for Windows, do the following from a Linux 
 bazel build --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64_msvc native_messaging:detanglenm
 ```
 
-The bazelnm.exe file will then be outputted to bazel-bin/native_messaging/windows_amd64_pure_stripped/detanglenm.exe
+The detanglenm.exe file will then be outputted to bazel-bin/native_messaging/windows_amd64_pure_stripped/detanglenm.exe
 
 ## Using on Windows
 
