@@ -13,24 +13,24 @@
 # limitations under the License.
 
 def _tar_dep(dep):
-  return dep + "//:tar"
+    return dep + "//:tar"
 
 def _tar_deps(deps):
-  return [_tar_dep(d) for d in deps]
+    return [_tar_dep(d) for d in deps]
 
 def _quote_string(i):
-  return "\"" + i.replace("\"", "\\\"") + "\""
+    return "\"" + i.replace("\"", "\\\"") + "\""
 
 def _join_list(l):
-  return ",".join([_quote_string(i) for i in l])
+    return ",".join([_quote_string(i) for i in l])
 
-def web_repo(name, srcs, path, urls, sha256, strip_prefix, deps = [], licenses=""):
-  native.new_http_archive(
-    name = name,
-    urls = urls,
-    sha256 = sha256,
-    strip_prefix = strip_prefix,
-    build_file_content = """
+def web_repo(name, srcs, path, urls, sha256, strip_prefix, deps = [], licenses = ""):
+    native.new_http_archive(
+        name = name,
+        urls = urls,
+        sha256 = sha256,
+        strip_prefix = strip_prefix,
+        build_file_content = """
 package(default_visibility = ["//visibility:public"])
 
 load("@io_bazel_rules_closure//closure:defs.bzl", "web_library")
@@ -55,4 +55,4 @@ pkg_tar(
     package_dir = "/",
 )
 """ % (name, _join_list(srcs), _quote_string(path), _join_list(deps), _join_list(srcs), _quote_string(path), _join_list(_tar_deps(deps))),
-  )
+    )
