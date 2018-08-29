@@ -69,7 +69,7 @@ def web_bin(name, srcs, path, deps = []):
         ],
     )
 
-def detangle_component(name, js_deps = [], component_deps = []):
+def detangle_component(name, js_deps = [], component_deps = [], suppress = []):
     closure_js_binary(
         name = "%s-compiled" % name,
         compilation_level = "SIMPLE",
@@ -92,6 +92,7 @@ def detangle_component(name, js_deps = [], component_deps = []):
         srcs = ["%s.js" % name],
         convention = "GOOGLE",
         deps = js_deps,
+        suppress = suppress,
     )
 
     web_lib(

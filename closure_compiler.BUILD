@@ -5,6 +5,9 @@ package(default_visibility = ["//visibility:public"])
 closure_js_library(
     name = "polymer_externs",
     srcs = ["contrib/externs/polymer-1.0.js"],
+    suppress = [
+        "JSC_STRICT_INEXISTENT_PROPERTY",
+    ],
 )
 
 closure_js_library(
@@ -12,5 +15,8 @@ closure_js_library(
     srcs = [
       "contrib/externs/chrome.js",
       "contrib/externs/chrome_extensions.js",
+    ],
+    suppress = [
+        "JSC_STRICT_INEXISTENT_PROPERTY",
     ],
 )

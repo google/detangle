@@ -28,4 +28,7 @@ detangle_component(
         "@closure_compiler//:polymer_externs",
         "@io_bazel_rules_closure//closure/library",
     ],
+    suppress = [
+        "JSC_STRICT_INEXISTENT_PROPERTY",
+    ],
 )

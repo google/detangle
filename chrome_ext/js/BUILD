@@ -139,6 +139,9 @@ closure_js_library(
         "@closure_compiler//:chrome_ext_externs",
         "@io_bazel_rules_closure//closure/library",
     ],
+    suppress = [
+        "JSC_MISSING_CONST_PROPERTY",
+    ],
 )
 
 closure_js_library(
