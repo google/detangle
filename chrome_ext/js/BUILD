@@ -134,13 +134,13 @@ closure_js_library(
     name = "storage_js",
     srcs = ["storage.js"],
     convention = "GOOGLE",
+    suppress = [
+        "JSC_MISSING_CONST_PROPERTY",
+    ],
     deps = [
         ":common_js",
         "@closure_compiler//:chrome_ext_externs",
         "@io_bazel_rules_closure//closure/library",
-    ],
-    suppress = [
-        "JSC_MISSING_CONST_PROPERTY",
     ],
 )
 
